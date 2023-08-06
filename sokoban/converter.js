@@ -1,8 +1,8 @@
-import BigNumber from './bignumber.js';
+import { BigNumber } from './bignumber.js';
 
 const coordchars =
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabscdefghijklmnopqrstuvwxyz';
-const sokochars = 'PACTBEW';
+const sokochars = 'CTBEW';
 
 const N = new BigNumber('1490116119384765625'); // 5**(25-1) * 5**2 * 2
 const coprime = new BigNumber('1490116119384765629'); // coprime with N
@@ -12,22 +12,15 @@ export const sokoCells = 25;
 
 export const generateSokostringFromRoomID = (roomID) => {
   const sokostring = '';
-  const sokonum = roomID.multipliedBy(coprime).mod(N);
-  const player_position = sokonum.mod(25);
-  for (let i = 0; i < sokoCells; i += 1) {
-    sokostring.concat(sokochars[remainder]);
-    sokoCells = sokoCells.idiv(5);
+  let sokonum = roomID.multipliedBy(coprime).mod(N);
+  const playerPosition = sokonum.mod(sokoCells);
+  sokonum = sokonum.idiv(sokoCells);
+  for (let i = 0; i < sokoCells - 1; i += 1) {
+    if (playerPosition.isEqualTo(i)) sokostring.concat('P');
+    const remainder = sokonum.mod(5);
+    sokostring.concat(sokochars[remainder.toNumber()]);
+    sokonum = sokonum.idiv(5);
   }
-};
-
-export const getX = (x, direction, spaces = 1) => {
-  if (direction === 'up' || direction === 'down') {
-    return x;
-  }
-  if (direction === 'right') {
-    return x + spaces;
-  }
-  if (direction === 'left') {
-    return x - spaces;
-  }
+  if (playerPosition.isEqualTo(sokoCells - 1)) sokostring.concat('P');
+  return sokostring;
 };
