@@ -6,9 +6,10 @@ const MOVE_AMOUNT = 50;
 // Setup our canvas for drawing
 // make a variable called height and width from the same properties on our canvas.
 const { width, height } = canvas;
-
+console.log(width, height);
 let x = Math.floor(Math.random() * width);
 let y = Math.floor(Math.random() * height);
+console.log(x, y);
 // create random x and y starting points on the canvas
 
 ctx.lineJoin = 'round';
@@ -66,7 +67,7 @@ function clearCanvas() {
   ctx.clearRect(0, 0, width, height);
   canvas.addEventListener(
     'animationend',
-    function() {
+    () => {
       console.log('Done the shake!');
       canvas.classList.remove('shake');
     },
