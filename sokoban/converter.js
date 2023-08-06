@@ -11,16 +11,17 @@ const modinv = new BigNumber('1117587089538574219'); // found with wolfram alpha
 export const sokoCells = 25;
 
 export const generateSokostringFromRoomID = (roomID) => {
-  const sokostring = '';
+  let sokostring = '';
   let sokonum = roomID.multipliedBy(coprime).mod(N);
   const playerPosition = sokonum.mod(sokoCells);
   sokonum = sokonum.idiv(sokoCells);
   for (let i = 0; i < sokoCells - 1; i += 1) {
-    if (playerPosition.isEqualTo(i)) sokostring.concat('P');
+    if (playerPosition.isEqualTo(i)) sokostring = sokostring.concat('P');
     const remainder = sokonum.mod(5);
-    sokostring.concat(sokochars[remainder.toNumber()]);
+    sokostring = sokostring.concat(sokochars[remainder.toNumber()]);
     sokonum = sokonum.idiv(5);
   }
-  if (playerPosition.isEqualTo(sokoCells - 1)) sokostring.concat('P');
+  if (playerPosition.isEqualTo(sokoCells - 1))
+    sokostring = sokostring.concat('P');
   return sokostring;
 };
