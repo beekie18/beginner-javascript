@@ -1,17 +1,16 @@
 import { BigNumber } from './bignumber.js';
+import { Vec2 } from './vec2.js';
 
-const coordchars =
-  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabscdefghijklmnopqrstuvwxyz';
 const sokochars = 'CTBEW'; // Crate, Target, Both, Empty, Wall. Not included: Player
 
 const N = new BigNumber('1490116119384765625'); // 5**(25-1) * 5**2
 const coprime = new BigNumber('1490116119384765629'); // coprime with N
 const modinv = new BigNumber('1117587089538574219'); // found with wolfram alpha
-const maxX = new BigNumber('1220703125'); // sqrt(N), to make a square arcade
+const maxrx = new BigNumber('1220703125'); // sqrt(N), to make a square arcade
 
-export const sokoCells = 25;
+const sokoCells = 25;
 
-export const sokostringFromRoomID = (roomID) => {
+const sokostringFromRoomID = (roomID) => {
   let sokostring = '';
   let sokonum = roomID.multipliedBy(coprime).mod(N);
   const playerPosition = sokonum.mod(sokoCells);
@@ -27,7 +26,7 @@ export const sokostringFromRoomID = (roomID) => {
   return sokostring;
 };
 
-export const roomIDFromSokostring = (sokostring) => {
+const roomIDFromSokostring = (sokostring) => {
   let roomID = new BigNumber(0);
   let foundPlayer = 0;
   for (let i = 0; i < sokostring.length; i += 1) {
@@ -45,6 +44,12 @@ export const roomIDFromSokostring = (sokostring) => {
   return roomID.times(modinv).mod(N);
 };
 
-export const rxFromRoomID = (roomID) => roomID.mod(maxX);
-export const ryFromRoomID = (roomID) => roomID.idiv(maxX);
-export const roomIDFromRxy = (rx, ry) => ry.times(maxX).plus(rx);
+const rxyFromRoomID = (roomID) =>
+  new Vec2(roomID.mod(maxrx), roomID.idiv(maxrx));
+const roomIDFromRxy = (rxy) => rxy.y.times(maxrx).plus(rxy.x);
+
+export const rxyFromSokostring = (sokostring) =>
+  rxyFromRoomID(roomIDFromSokostring(sokostring));
+
+export const sokostringFromRxy = (rxy) =>
+  sokostringFromRoomID(roomIDFromRxy(rxy));

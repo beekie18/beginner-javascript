@@ -1,10 +1,9 @@
 import { BigNumber } from './bignumber.js';
-import {
-  sokoCells,
-  sokostringFromRoomID,
-  roomIDFromSokostring,
-} from './converter.js';
+import { Vec2 } from './vec2.js';
+import { rxyFromSokostring, sokostringFromRxy } from './converter.js';
 
-const sokostring = 'CTBEWCTBEWCTBEWCTBEWCTBEP';
-const roomID = roomIDFromSokostring(sokostring);
-console.log(sokostringFromRoomID(roomID));
+const sokostring = 'BPEWCBWETCCCEEBCEEECBTCCC';
+const rxy = rxyFromSokostring(sokostring);
+console.log(rxy.toString());
+console.log(sokostringFromRxy(rxy));
+console.log(sokostringFromRxy(new Vec2(867919, 698142)));
