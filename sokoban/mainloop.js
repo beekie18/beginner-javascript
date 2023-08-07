@@ -12,3 +12,5 @@ const canvas = document.querySelector('#mainscreen');
 const ctx = canvas.getContext('2d');
 const { width, height } = canvas;
 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+// https://stackoverflow.com/questions/3420975/html5-canvas-zooming
