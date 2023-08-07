@@ -5,6 +5,6 @@ import {
   roomIDFromSokostring,
 } from './converter.js';
 
-const sokostring = 'CCCCPWWWWWEEEEEBBBBBTTTTT';
+const sokostring = 'CTBEWCTBEWCTBEWCTBEWCTBEP';
 const roomID = roomIDFromSokostring(sokostring);
 console.log(sokostringFromRoomID(roomID));

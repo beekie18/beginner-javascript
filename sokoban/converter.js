@@ -41,5 +41,5 @@ export const roomIDFromSokostring = (sokostring) => {
       );
     }
   }
-  return roomID;
+  return roomID.times(modinv).mod(N);
 };
