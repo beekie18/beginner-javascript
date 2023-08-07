@@ -7,6 +7,7 @@ const sokochars = 'CTBEW'; // Crate, Target, Both, Empty, Wall. Not included: Pl
 const N = new BigNumber('1490116119384765625'); // 5**(25-1) * 5**2
 const coprime = new BigNumber('1490116119384765629'); // coprime with N
 const modinv = new BigNumber('1117587089538574219'); // found with wolfram alpha
+const maxX = new BigNumber('1220703125'); // sqrt(N), to make a square arcade
 
 export const sokoCells = 25;
 
@@ -43,3 +44,7 @@ export const roomIDFromSokostring = (sokostring) => {
   }
   return roomID.times(modinv).mod(N);
 };
+
+export const rxFromRoomID = (roomID) => roomID.mod(maxX);
+export const ryFromRoomID = (roomID) => roomID.idiv(maxX);
+export const roomIDFromRxy = (rx, ry) => ry.times(maxX).plus(rx);
