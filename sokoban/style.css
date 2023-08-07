@@ -31,3 +31,14 @@ p {
 header {
     margin-right: 1rem;
 }
+
+canvas {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+    border: 2px solid black;
+    background-color: white;
+}
