@@ -1,4 +1,10 @@
 import { BigNumber } from './bignumber.js';
-import { sokoCells, generateSokostringFromRoomID } from './converter.js';
+import {
+  sokoCells,
+  sokostringFromRoomID,
+  roomIDFromSokostring,
+} from './converter.js';
 
-console.log(generateSokostringFromRoomID(new BigNumber(123456789)));
+const sokostring = 'CCCCPWWWWWEEEEEBBBBBTTTTT';
+const roomID = roomIDFromSokostring(sokostring);
+console.log(sokostringFromRoomID(roomID));
